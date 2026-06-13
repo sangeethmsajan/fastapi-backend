@@ -1,0 +1,83 @@
+Double-click the new run.bat file in your d:\fastapi-demo directory (or run it via terminal). It will:
+
+
+// activate app inside app folder
+venv\Scripts\activate.bat
+
+// installation plus running single command
+python -m pip install fastapi "uvicorn[standard]" sqlalchemy pymysql celery redis pydantic pydantic-settings && python -m uvicorn app.main:app --reload
+
+// start fast api using uvicorn
+python -m uvicorn app.main:app --reload
+
+// uvicorn install if needed
+python -m pip install "uvicorn[standard]" fastapi
+
+// start celery worker
+python -m celery -A app.celery_app worker --loglevel=info --pool=solo
+
+// Flower running command
+python -m celery -A app.celery_app flower --port=5555
+
+// Redis insight added for monitoring locally and integrated with docker 
+http://localhost:5540
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// findings to implement and work on
+Port	Service	Tool
+21	FTP	Nmap scripts
+22	SSH	SSH banner check
+80/443	HTTP/HTTPS	Nikto, Burp/ZAP
+139/445	SMB	Enum4linux
+3306	MySQL	Banner/version check
+
+
+
+User
+↓
+Python CLI / Flask Dashboard
+↓
+Scan Controller
+↓
+Tool Integration Layer
+├── Nmap Module
+├── Nikto Module
+├── SMB Enum Module
+├── Burp/ZAP Parser
+├── Metasploit Assistant
+├── Wireshark Evidence Module
+└── Report Module
+↓
+Result Parser
+↓
+Intelligent Decision Engine
+↓
+Database
+↓
+PDF / HTML Report
+
+
+
+VulnHub:
+DC-1
+DC-2
+Kioptrix
+Symfonos
+TryHackMe:
+Basic Pentesting
+Kenobi
+OWASP Top 10
+HackTheBox:
+Free / retired lab machines

@@ -5,13 +5,18 @@ Double-click the new run.bat file in your d:\fastapi-demo directory (or run it v
 venv\Scripts\activate.bat
 
 // installation plus running single command
-python -m pip install fastapi "uvicorn[standard]" sqlalchemy pymysql celery redis pydantic pydantic-settings && python -m uvicorn app.main:app --reload
+python -m pip install fastapi openai "uvicorn[standard]" sqlalchemy pymysql celery redis docker pydantic pydantic-settings && python -m uvicorn app.main:app --reload
 
 // start fast api using uvicorn
 python -m uvicorn app.main:app --reload
 
 // uvicorn install if needed
 python -m pip install "uvicorn[standard]" fastapi
+
+// run both commands same time 
+python -m pip install "uvicorn[standard]" fastapi & \
+python -m celery -A app.celery_app worker --loglevel=info --pool=solo
+
 
 // start celery worker
 python -m celery -A app.celery_app worker --loglevel=info --pool=solo
@@ -21,6 +26,10 @@ python -m celery -A app.celery_app flower --port=5555
 
 // Redis insight added for monitoring locally and integrated with docker 
 http://localhost:5540
+
+Day1
+Day2
+Day3
 
 
 

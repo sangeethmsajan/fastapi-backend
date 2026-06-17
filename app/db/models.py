@@ -13,4 +13,6 @@ class Attack(Base):
     scope = Column(Text, nullable=True)
     objective = Column(Text, nullable=True)
     status = Column(String(50), nullable=False, default="Queued")
+    response = Column(Text, nullable=True)
+    ai_analysis = Column(Text, nullable=True)
     created_at = Column(DateTime, server_default=func.now())

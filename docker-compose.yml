@@ -1,0 +1,95 @@
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: iosaf-mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpass
+      MYSQL_DATABASE: iosaf
+      MYSQL_USER: iosaf
+      MYSQL_PASSWORD: iosafpass
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+  redis:
+    image: redis:7-alpine
+    container_name: iosaf-redis
+    restart: always
+    ports:
+      - "6380:6379"
+    volumes:
+      - redis_data:/data
+
+  fastapi:
+    build: .
+    container_name: iosaf-fastapi
+    restart: always
+    ports:
+      - "8000:8000"
+    environment:
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_USER: iosaf
+      DB_PASSWORD: iosafpass
+      DB_NAME: iosaf
+      CELERY_BROKER_URL: redis://redis:6379/0
+      CELERY_RESULT_BACKEND: redis://redis:6379/0
+    depends_on:
+      - mysql
+      - redis
+
+  celery-worker:
+    build: .
+    container_name: iosaf-celery
+    restart: always
+    command: celery -A app.celery_app worker --loglevel=info --pool=solo
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_USER: iosaf
+      DB_PASSWORD: iosafpass
+      DB_NAME: iosaf
+      CELERY_BROKER_URL: redis://redis:6379/0
+      CELERY_RESULT_BACKEND: redis://redis:6379/0
+    depends_on:
+      - mysql
+      - redis
+      - fastapi
+
+  zap-daemon:
+    image: ghcr.io/zaproxy/zaproxy:stable
+    container_name: iosaf-zap
+    restart: always
+    ports:
+      - "8080:8080"
+    command: >
+      zap.sh -daemon
+      -port 8080 -host 0.0.0.0
+      -config api.key=iosafkey
+      -config api.addrs.addr.name=.*
+      -config api.addrs.addr.regex=true
+
+  juice-shop:
+    image: bkimminich/juice-shop
+    container_name: iosaf-juiceshop
+    restart: always
+    ports:
+      - "3000:3000"
+  frontend:
+    build: C:/iosaf-ui
+    container_name: iosaf-frontend
+    restart: always
+    ports:
+      - "5173:5173"
+    environment:
+      VITE_API_BASE_URL: http://localhost:8000/api
+    depends_on:
+      - fastapi    
+
+volumes:
+  mysql_data:
+  redis_data:

@@ -19,6 +19,8 @@ class Settings(BaseSettings):
 
     model_config = SettingsConfigDict(env_file=".env", extra="ignore")
     deepseek_api_key: str
+    zap_api_url: str = Field(default="http://zap-daemon:8080", alias="ZAP_API_URL")
+    zap_api_key: str = Field(default="iosafkey", alias="ZAP_API_KEY")
 
 
 settings = Settings()

@@ -5,13 +5,18 @@ Double-click the new run.bat file in your d:\fastapi-demo directory (or run it v
 venv\Scripts\activate.bat
 
 // installation plus running single command
-python -m pip install fastapi "uvicorn[standard]" sqlalchemy pymysql celery redis pydantic pydantic-settings && python -m uvicorn app.main:app --reload
+python -m pip install fastapi openai "uvicorn[standard]" sqlalchemy pymysql celery redis docker pydantic pydantic-settings && python -m uvicorn app.main:app --reload
 
 // start fast api using uvicorn
 python -m uvicorn app.main:app --reload
 
 // uvicorn install if needed
 python -m pip install "uvicorn[standard]" fastapi
+
+// run both commands same time 
+python -m pip install "uvicorn[standard]" fastapi & \
+python -m celery -A app.celery_app worker --loglevel=info --pool=solo
+
 
 // start celery worker
 python -m celery -A app.celery_app worker --loglevel=info --pool=solo
@@ -23,17 +28,18 @@ python -m celery -A app.celery_app flower --port=5555
 http://localhost:5540
 
 
+// wsl username : sangee
+password sahm2026#
 
+wsl connect
+cd ~
+cp /mnt/c/Users/sange/Downloads/ap-south-1-sangeethmsajan123-regular.ovpn ~/
+docker cp ~/ap-south-1-sangeethmsajan123-regular.ovpn 5801511:/root/
 
-
-
-
-
-
-
-
-
-
+// iosaf portal credentials
+usename : iosafadmin
+email : johnsajan000@gmail.com
+password: Iosaf@1234
 
 // findings to implement and work on
 Port	Service	Tool
@@ -81,3 +87,9 @@ Kenobi
 OWASP Top 10
 HackTheBox:
 Free / retired lab machines
+
+
+'abhraham_mosis@wearehackerone.com' - email for hacker one
+
+docker logs iosaf-celery
+docker exec -it kali-iosaf /bin/bash

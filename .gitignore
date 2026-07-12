@@ -216,3 +216,7 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+runcommands.txt
+app/backend-fasiapi.zip
+.env
+.env

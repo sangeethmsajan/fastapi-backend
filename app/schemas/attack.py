@@ -1,20 +1,35 @@
-from typing import Literal
+from typing import Optional
 from pydantic import BaseModel, Field
+from datetime import datetime
 
 
 class AttackCreateRequest(BaseModel):
-    name: str = Field(..., min_length=3, max_length=150)
-    type: Literal["internal", "external"]
-    target: str = Field(..., min_length=1, max_length=255)
-    scope: str | None = Field(default=None, max_length=1000)
-    objective: str | None = Field(default=None, max_length=1000)
+    name: str
+    type: str
+    target: str
+    scope: Optional[str] = None
+    objective: Optional[str] = None
 
 
 class AttackResponse(BaseModel):
     id: int
     name: str
-    type: Literal["internal", "external"]
+    type: str = Field(alias="attack_type")  # ← reads attack_type from DB, sends as type
     target: str
-    scope: str | None = None
-    objective: str | None = None
+    scope: Optional[str] = None
+    objective: Optional[str] = None
     status: str
+    created_at: datetime
+
+    class Config:
+        from_attributes = True
+        populate_by_name = True   # ← allows both field name and alias to work
+
+
+class AttackListResponse(BaseModel):
+    attacks: list[AttackResponse]
+    total: int
+    counts: dict[str, int]
+    page: int
+    limit: int
+    total_pages: int

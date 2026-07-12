@@ -1,0 +1,27 @@
+nikto -h https://www.zwapall.com/
+- Nikto v2.6.0
+---------------------------------------------------------------------------
++ Target IP:          103.86.176.111
++ Target Hostname:    www.zwapall.com
++ Target Port:        443
+---------------------------------------------------------------------------
++ SSL Info:           Subject:  /CN=www.zwapall.com
+                      CN:       www.zwapall.com
+                      SAN:      www.zwapall.com, zwapall.com
+                      Ciphers:  TLS_AES_256_GCM_SHA384
+                      Issuer:   /C=US/O=Let's Encrypt/CN=E7
++ Platform:           Unknown
++ Start Time:         2026-06-16 16:32:52 (GMT0)
+---------------------------------------------------------------------------
++ Server: openresty/1.29.2.3
++ ERROR: Failed to check for updates: 403
++ [999979] /: IP address found in the 'server' header. The IP is "1.29.2.3". See: https://portswigger.net/kb/issues/00600300_private-ip-addresses-disclosed
++ No CGI Directories found (use '-C all' to force check all possible dirs). CGI tests skipped.
++ ERROR: *** Error limit (20) reached for host, giving up. Last error: opening stream: can't connect (timeout): Interrupted system call. ***
++ ERROR: *** Consider using mitmproxy to avoid TLS fingerprinting. ***
+- STATUS: Completed 134 requests (~2% complete, ~6.1 hours left): currently in plugin 'Site Files'
+- STATUS: Running average: Not enough data.
++ Scan terminated: 20 errors and 1 item reported on the remote host
++ End Time:           2026-06-16 16:39:45 (GMT0) (413 seconds)
+---------------------------------------------------------------------------
++ 1 host(s) tested

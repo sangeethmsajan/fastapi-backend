@@ -1,0 +1,65 @@
+─# nmap -sV -A zwapall.com
+Starting Nmap 7.99 ( https://nmap.org ) at 2026-06-16 14:59 +0000
+Nmap scan report for zwapall.com (103.86.176.111)
+Host is up (0.0095s latency).
+Not shown: 989 filtered tcp ports (no-response)
+PORT     STATE SERVICE  VERSION
+21/tcp   open  ftp      Pure-FTPd
+22/tcp   open  ssh      OpenSSH 8.7 (protocol 2.0)
+| ssh-hostkey:
+|   256 6f:66:e9:ab:2c:e8:0a:89:fb:b7:97:28:b2:65:d8:64 (ECDSA)
+|_  256 6f:35:df:16:06:78:5c:d0:fd:4a:b1:3d:04:9f:66:88 (ED25519)
+53/tcp   open  domain   ISC BIND 9.16.23 (RedHat Linux)
+80/tcp   open  http     LiteSpeed httpd
+|_http-title:  403 Forbidden
+|_http-server-header: openresty/1.29.2.3
+110/tcp  open  pop3     Dovecot DirectAdmin pop3d
+|_pop3-capabilities: RESP-CODES TOP UIDL PIPELINING STLS AUTH-RESP-CODE SASL CAPA
+143/tcp  open  imap     Dovecot imapd
+|_imap-capabilities: LOGINDISABLEDA0001 Pre-login LOGIN-REFERRALS listed SASL-IR IMAP4rev1 STARTTLS post-login have IDLE ID OK more capabilities LITERAL+ ENABLE
+443/tcp  open  ssl/http LiteSpeed httpd
+| ssl-cert: Subject: commonName=www.zwapall.com
+| Subject Alternative Name: DNS:www.zwapall.com, DNS:zwapall.com
+| Not valid before: 2026-04-17T11:09:10
+|_Not valid after:  2026-07-16T11:09:09
+| tls-alpn:
+|   h2
+|   http/1.1
+|   http/1.0
+|_  http/0.9
+|_http-title:  403 Forbidden
+|_http-server-header: openresty/1.29.2.3
+|_ssl-date: TLS randomness does not represent time
+587/tcp  open  smtp     Exim smtpd 4.99.1
+| smtp-commands: alpha.mywebhosting.in Hello zwapall.com [103.151.188.158], SIZE 52428800, LIMITS MAILMAX=100 RCPTMAX=150, 8BITMIME, PIPELINING, PIPECONNECT, STARTTLS, HELP
+|_ Commands supported: AUTH STARTTLS HELO EHLO MAIL RCPT DATA BDAT NOOP QUIT RSET HELP
+993/tcp  open  ssl/imap Dovecot imapd
+|_imap-capabilities: Pre-login IDLE capabilities SASL-IR IMAP4rev1 post-login listed have OK ID LOGIN-REFERRALS more AUTH=PLAINA0001 LITERAL+ ENABLE
+995/tcp  open  ssl/pop3 Dovecot DirectAdmin pop3d
+|_pop3-capabilities: RESP-CODES TOP UIDL SASL(PLAIN) PIPELINING AUTH-RESP-CODE USER CAPA
+3306/tcp open  mysql    MariaDB 5.5.5-10.6.24
+| mysql-info:
+|   Protocol: 10
+|   Version: 5.5.5-10.6.24-MariaDB
+|   Thread ID: 42599549
+|   Capabilities flags: 63486
+|   Some Capabilities: Support41Auth, Speaks41ProtocolOld, InteractiveClient, SupportsCompression, Speaks41ProtocolNew, SupportsLoadDataLocal, LongColumnFlag, IgnoreSigpipes, IgnoreSpaceBeforeParenthesis, DontAllowDatabaseTableColumn, ODBCClient, FoundRows, SupportsTransactions, ConnectWithDatabase, SupportsMultipleStatments, SupportsAuthPlugins, SupportsMultipleResults
+|   Status: Autocommit
+|   Salt: eXi'&(4nNx46R{52=zn<
+|_  Auth Plugin Name: mysql_native_password
+Warning: OSScan results may be unreliable because we could not find at least 1 open and 1 closed port
+Device type: specialized
+Running (JUST GUESSING): Google Fuchsia (89%)
+OS CPE: cpe:/o:google:fuchsia
+Aggressive OS guesses: Google Fuchsia (89%)
+No exact OS matches for host (test conditions non-ideal).
+Network Distance: 2 hops
+Service Info: Host: alpha.mywebhosting.in; OS: Linux; CPE: cpe:/o:linux:linux_kernel
+
+TRACEROUTE (using port 80/tcp)
+HOP RTT     ADDRESS
+1   0.12 ms 172.17.0.1
+2   1.35 ms 103.86.176.111
+
+OS and Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 364.67 seconds

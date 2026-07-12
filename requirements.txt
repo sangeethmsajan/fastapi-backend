@@ -6,3 +6,5 @@ sqlalchemy
 pymysql
 celery
 redis
+docker
+openai

@@ -1,8 +1,12 @@
 from pydantic import BaseModel
+from typing import List
 
+class KpiItem(BaseModel):
+    id: int
+    label: str
+    value: str        # string not int — matches your frontend "7", "24"
+    meta: str
+    tone: str
 
 class DashboardSummaryResponse(BaseModel):
-    active_attacks: int
-    completed: int
-    critical_findings: int
-    agents_online: int
+    kpis: List[KpiItem]
